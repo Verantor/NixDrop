@@ -14,6 +14,10 @@
       # NOTE: Change this to aarch64-linux if you are on ARM
       system = "x86_64-linux";
       modules = [  
+{
+boot.supportedFilesystems = [ "bcachefs" ];
+boot.kernelPackages = pkgs.linuxPackages_latest;
+}
 ./configuration.nix
       inputs.disko.nixosModules.disko ];
     };
