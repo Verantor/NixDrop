@@ -3,6 +3,7 @@ sudo nix --experimental-features "nix-command flakes" run github:nix-community/d
 sudo nixos-generate-config --no-filesystems --root /mnt
 sleep 5s
 cd /mnt/etc/nixos/
+nix-env -iA nixos.git
 git clone https://github.com/Verantor/NixDrop/
 sleep 5s
 cd NixDrop/
