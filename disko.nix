@@ -1,37 +1,32 @@
-{disks ? ["/dev/nvme0n1"], ...}: {
-boot.supportedFilesystems = [ "bcachefs" ];
+{
   disko.devices = {
     disk = {
       main = {
-        device = builtins.elemAt disks 0;
+        device = "/dev/disk/by-path/pci-0000:02:00.0-nvme-1";
         type = "disk";
         content = {
-          type = "table";
-          format = "gpt";
-          partitions = [
-            {
-              name = "ESP";
-              start = "1MiB";
-              end = "500MiB";
-              bootable = true;
+          type = "gpt";
+          partitions = {
+            ESP = {
+              end = "500M";
+              type = "EF00";
               content = {
                 type = "filesystem";
                 format = "vfat";
                 mountpoint = "/boot";
+                mountOptions = [ "umask=0077" ];
               };
-            }
-            {
+            };
+            root = {
               name = "root";
-              start = "500MiB";
-              end = "100%";
-              part-type = "primary";
+              end = "-0";
               content = {
                 type = "filesystem";
                 format = "bcachefs";
                 mountpoint = "/";
               };
-            }
-          ];
+            };
+          };
         };
       };
     };
