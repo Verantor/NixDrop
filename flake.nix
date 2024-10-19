@@ -16,7 +16,6 @@
       modules = [  
 {
 boot.supportedFilesystems = [ "bcachefs" ];
-boot.kernelPackages = pkgs.linuxPackages_latest;
 }
 ./configuration.nix
 ./disko.nix
